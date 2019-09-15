@@ -1,0 +1,2 @@
+# scoped
+The oscilloscope daemon
