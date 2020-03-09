@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Version 1.2
 
 import serial
 import io
@@ -67,14 +68,21 @@ def argument_parser():  ########################################################
         directory = "./"
 
     if args.serialport:
-        if os.path.exists(args.serialport):
+        if os.name != 'nt':
+            if os.path.exists(args.serialport):
+                print("Serial port set to %s" % args.serialport)
+                serialport = args.serialport
+            else:
+                print("Error: %s does not exist"% args.serialport)
+                quit()
+        else:
             print("Serial port set to %s" % args.serialport)
             serialport = args.serialport
-        else:
-            print("Error: %s does not exist"% args.serialport)
-            quit()
     else:
-        serialport = "/dev/ttyUSB0"
+        if os.name != 'nt':
+            serialport = "COM12"
+        else:
+            serialport = "/dev/ttyUSB0"
 
     if args.prefix:
         print("File prefix set to %s" % args.prefix)
