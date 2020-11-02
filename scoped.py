@@ -80,9 +80,10 @@ def argument_parser():  ########################################################
             serialport = args.serialport
     else:
         if os.name != 'nt':
-            serialport = "COM12"
-        else:
             serialport = "/dev/ttyUSB0"
+        else:
+            serialport = "COM12"
+            
 
     if args.prefix:
         print("File prefix set to %s" % args.prefix)
