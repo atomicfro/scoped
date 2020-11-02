@@ -60,7 +60,10 @@ def argument_parser():  ########################################################
     if args.directory:
         if os.path.exists(args.directory):
             print("Directory set to %s" % args.directory)
-            directory = args.directory + "/"
+            if args.directory[-1] != "/":
+                directory = args.directory + "/"
+            else:
+                directory = args.directory
         else:
             print("Error: %s does not exist" % args.directory)
             quit()
@@ -166,10 +169,10 @@ def state2():   ################################################################
     #grab file list
     filelist = [f for f in glob.glob(directory+"*.png")]
     #does file exist
-    while (directory + prefix+str(filenumber).zfill(3)+suffix in filelist):
+    while (directory + prefix+str(filenumber).zfill(leading_zeros)+suffix in filelist):
         filenumber = filenumber + 1
     
-    filename = directory + prefix + str(filenumber).zfill(3)+suffix
+    filename = directory + prefix + str(filenumber).zfill(leading_zeros)+suffix
     #open file
     filehandle = open(filename, "wb")
     #write file
